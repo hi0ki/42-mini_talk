@@ -1,29 +1,44 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <signal.h>
+#include "client.h"
 
-void print_bits(char c)
+void send_bits(char c, int pid)
 {
+    int div = 128;
+    while(div != 0)
+    {
+        if (c / div)
+        {
+            kill(pid, SIGUSR1);
+            usleep(150);
+            c = c % div;
+        }
+        else
+        {
+            kill(pid, SIGUSR2);
+            usleep(150);
+        }
+        div = div / 2;
+    }
+}
+void    start(char **av)
+{
+    int pid;
     int i;
 
-    i = 8;
-    while(i >= 0)
+    pid = ft_atoi(av[1]);
+    i = 0;
+    while(av[2][i])
     {
-        if (c % 2 == 0)
-            kill(, sig);
-        else 
-            putchar('1');
-        printf(">>>%d<<<<\n", c % 2);
-        c = c >> 1;
-        i--;
+        send_bits(av[2][i], pid);
+        i++;
     }
 }
 
-int main() {
-
-    unsigned int c = 10;
-    
-    print_bits(c);
+int main(int ac, char **av)
+{
+    if (ac == 3)
+    {
+        start(av);
+    }
 }
 /*
     10 = 00010100
