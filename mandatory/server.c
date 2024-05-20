@@ -1,19 +1,41 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <signal.h>
+#include "minitalk.h"
 
-void handler(int num)
+void    handler(int num, siginfo_t *sig, void *data)
 {
-    write(1, "1", 2);
+    static int  i;
+    static char str[9];
+    static int  pid;
+
+    if (pid != sig->si_pid)
+    {
+        pid = sig->si_pid;
+        ft_bzero(str);
+        i = 0;
+    }
+    if (num == SIGUSR1)
+        str[i] = '1';
+    else if (num == SIGUSR2)
+        str[i] = '0';
+    i++;
+    if (i == 8)
+    {
+        str[i] = '\0';
+        i = 0;
+        convert_bits(str);
+    }
 }
-void handler1(int num)
+int main(int ac, char **av)
 {
-    write(1, "0", 2);
-}
-int main()
-{
-    printf("pid %d\n", getpid());
-    signal(SIGUSR1, handler);
-    signal(SIGUSR2, handler1);
-    while (1);
+    struct sigaction sa;
+    if (ac == 1)
+    {
+        printf("pid %d\n", getpid());
+        sa.sa_sigaction = handler;
+        sa.sa_flags = SA_SIGINFO;
+        sigaction(SIGUSR1, &sa, NULL);
+        sigaction(SIGUSR2, &sa, NULL);
+        while (1);
+    }
+    else
+        puterror("only one arg bebe\n");  
 }

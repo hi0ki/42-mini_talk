@@ -1,4 +1,4 @@
-#include "client.h"
+#include "minitalk.h"
 
 void    puterror(char *str)
 {
@@ -12,6 +12,7 @@ void    puterror(char *str)
     }
     exit(0);
 }
+
 int check_atoi(char *str)
 {
     int i;
