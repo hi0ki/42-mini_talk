@@ -21,6 +21,20 @@ void	get_char(int num, t_server *s)
 	s->i++;
 }
 
+void	get_len(int num, t_server *s)
+{
+	if (num == SIGUSR1)
+		s->s1[s->bits] = '1';
+	else if (num == SIGUSR2)
+		s->s1[s->bits] = '0';
+	s->bits++;
+	if (s->bits == 64)
+	{
+		s->s1[s->bits] = '\0';
+		convert_len(s->s1, s);
+	}
+}
+
 void	handler(int num, siginfo_t *sig, void *data)
 {
 	static t_server	s;
@@ -30,14 +44,23 @@ void	handler(int num, siginfo_t *sig, void *data)
 	{
 		s.pid = sig->si_pid;
 		ft_bzero(s.str);
+		s.bits = 0;
 		s.i = 0;
 	}
-	get_char(num, &s);
+	if (s.bits < 64)
+		get_len(num, &s);
+	else
+		get_char(num, &s);
 	if (s.i == 8)
 	{
 		s.str[s.i] = '\0';
 		s.i = 0;
 		convert_bits(s.str);
+		s.len--;
+		if (s.len == 0)
+		{
+			kill(s.pid, SIGUSR1);
+		}
 	}
 }
 

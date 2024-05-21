@@ -22,6 +22,9 @@
 typedef struct server{
 	int		pid;
 	int		i;
+	int		bits;
+	int		len;
+	char	s1[64];
 	char	str[8];
 }t_server;
 
@@ -30,5 +33,7 @@ void	send_bits(unsigned char c, int pid);
 void	ft_bzero(char *s);
 void	convert_bits(char *str);
 void	puterror(char *str);
+void	convert_len(char *str, t_server *s);
+size_t	ft_strlen(char *str);
 
 #endif

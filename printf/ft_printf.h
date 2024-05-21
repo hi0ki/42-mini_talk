@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eel-ansa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/21 12:47:08 by eel-ansa          #+#    #+#             */
-/*   Updated: 2024/05/21 12:47:10 by eel-ansa         ###   ########.fr       */
+/*   Created: 2024/01/05 21:29:58 by eel-ansa          #+#    #+#             */
+/*   Updated: 2024/01/05 21:42:05 by eel-ansa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-# include "../printf/ft_printf.h"
 # include <stdio.h>
+# include <string.h>
+# include <stdarg.h>
 # include <unistd.h>
-# include <signal.h>
-# include <stdlib.h>
 
-typedef struct server{
-	int		pid;
-	int		i;
-	char	str[8];
-}t_server;
-
-int		ft_atoi(char *str);
-void	send_bits(unsigned char c, int pid);
-void	ft_bzero(char *s);
-void	convert_bits(char *str);
-void	puterror(char *str);
+int		ft_printf(const char *format, ...);
+int		ft_putstr(char *str);
+int		ft_putnbr(int n);
+int		ft_putung(unsigned int n);
+int		ft_putchar(char c);
+int		ft_putx(unsigned int nb, char c);
+int		ft_putp(unsigned long nb);
 
 #endif
