@@ -4,7 +4,12 @@ This project implements a client-server communication system using signals.
 
 ## Description
 
-minitalk allows a client to send a message to a server character by character, using only signals (SIGUSR1 and SIGUSR2). The server receives these signals, reconstructs the message, and displays it. This project allowed me to learn and demonstrate proficiency in **signal handling**, **bitwise operations**, **low-level communication**, **binary data conversion**, and the fundamentals of **client-server architecture**.
+minitalk allows a client to send a message to a server character by character, using only signals (SIGUSR1 and SIGUSR2). The server receives these signals, reconstructs the message, and displays it. This project allowed me to learn and demonstrate proficiency in:
+* Signal handling,
+* Bitwise operations,
+* Low-level communication,
+* Binary data conversion,
+* And the fundamentals of client-server architecture.
 
 ## Usage
 
