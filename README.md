@@ -28,3 +28,10 @@ minitalk allows a client to send a message to a server character by character, u
     ./client <server_PID> "<message>"
     ```
     Replace `<server_PID>` with the server's PID and `<message>` with the message you want to send. The client will send each bit of the message's characters as a sequence of `SIGUSR1` and `SIGUSR2` signals.
+
+## Detailed Explanation
+
+* **Signal Encoding:** Each character is broken down into its binary representation. `SIGUSR1` represents a `0`, and `SIGUSR2` represents a `1`. These signals are sent bit by bit to the server.
+* **Server Reception:** The server receives the signals and reconstructs the binary representation of each character. It then converts the binary back into ASCII and displays the complete message.
+* **Error Handling:** Basic error handling is implemented to ensure the server and client can handle invalid input or unexpected signal sequences.
+
